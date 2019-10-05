@@ -2,6 +2,8 @@ package com.ub.IteratorA2P1.tree;
 
 import java.util.Iterator;
 
+import com.ub.IteratorA2P1.iterator.AbsTreeIterator;
+
 public class Tree<T extends Comparable<T>> extends AbsTree<T> {
 	public Tree(T n) {
 		super(n);
@@ -19,7 +21,7 @@ public class Tree<T extends Comparable<T>> extends AbsTree<T> {
 		;
 	}
 	
-	protected int get_count() {
+	public int get_count() {
 		return 1;
 	}
 }

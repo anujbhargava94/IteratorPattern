@@ -134,7 +134,7 @@ public class GenericIterators {
 		set1.insert(150);
 		set1.insert(125);
 		set1.insert(151);
-		set1.insert(201);
+		set1.insert(200);
 
 		AbsTree<Integer> set2 = new Tree<Integer>(100);
 		set2.insert(50);
@@ -209,6 +209,33 @@ public class GenericIterators {
 		Iterator<T> iter2 = tr2.iterator();
 
 // ********** fill in code here **************
+		boolean areDisjoint = true;
+		T next1 = null;
+		T next2 = null;
+		if (iter1.hasNext() && iter2.hasNext()) {
+			next1 = iter1.next();
+			next2 = iter2.next();
+		}
+		while (true) {
+			if (next1.compareTo(next2) == 0) {
+				areDisjoint = false;
+				System.out.println("not disjoint at: " + next1 + " " + next2);
+				break;
+			} else if (next1.compareTo(next2) > 0) {
+				if (iter2.hasNext()) {
+					next2 = iter2.next();
+				} else {
+					break;
+				}
+			} else {
+				if (iter1.hasNext()) {
+					next1 = iter1.next();
+				} else {
+					break;
+				}
+			}
+		}
+		return areDisjoint;
 	}
 
 	static <T extends Comparable<T>> boolean contains(AbsTree<T> tr1, AbsTree<T> tr2) {
@@ -216,6 +243,42 @@ public class GenericIterators {
 		Iterator<T> iter2 = tr2.iterator();
 
 // *********** fill in code here *************
+		boolean doesContain = true;
+		T next1 = null;
+		T next2 = null;
+
+		if (iter1.hasNext() && iter2.hasNext()) {
+			next1 = iter1.next();
+			next2 = iter2.next();
+		}
+		while (true) {
+			if (next1.compareTo(next2) < 0) {
+
+				if (iter1.hasNext()) {
+					next1 = iter1.next();
+				} else {
+					System.out.println("not contains at: " + next1 + " " + next2);
+					doesContain = false;
+					break;
+				}
+			} else if (next1.compareTo(next2) == 0) {
+				if (iter1.hasNext() && iter2.hasNext()) {
+					next1 = iter1.next();
+					next2 = iter2.next();
+				} else if (iter2.hasNext()) {
+					System.out.println("not contains at: " + next1 + " " + next2);
+					doesContain = false;
+					break;
+				} else {
+					break;
+				}
+			} else {
+				System.out.println("not contains at: " + next1 + " " + next2);
+				doesContain = false;
+				break;
+			}
+		}
+		return doesContain;
 	}
 
 }

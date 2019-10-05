@@ -7,24 +7,24 @@ import java.util.Iterator;
 public abstract class AbsTree<T extends Comparable<T>> implements Iterable<T> {
 
 	public AbsTree(T v) {
-		value = v;
-		left = null;
-		right = null;
+		setValue(v);
+		setLeft(null);
+		setRight(null);
 	}
 
 	public void insert(T v) {
-		if (value.compareTo(v) == 0)
+		if (getValue().compareTo(v) == 0)
 			count_duplicates();
-		if (value.compareTo(v) > 0)
-			if (left == null)
-				left = add_node(v);
+		if (getValue().compareTo(v) > 0)
+			if (getLeft() == null)
+				setLeft(add_node(v));
 			else
-				left.insert(v);
-		else if (value.compareTo(v) < 0)
-			if (right == null)
-				right = add_node(v);
+				getLeft().insert(v);
+		else if (getValue().compareTo(v) < 0)
+			if (getRight() == null)
+				setRight(add_node(v));
 			else
-				right.insert(v);
+				getRight().insert(v);
 	}
 
 	public Iterator<T> iterator() {
@@ -32,11 +32,39 @@ public abstract class AbsTree<T extends Comparable<T>> implements Iterable<T> {
 	}
 
 	protected abstract AbsTree<T> add_node(T n);
+
 	protected abstract void count_duplicates();
-	protected abstract int get_count();
-	protected abstract Iterator<T> create_iterator();
+
+	public abstract int get_count();
 	
-	protected T value;
-	protected AbsTree<T> left;
-	protected AbsTree<T> right;
+
+	protected abstract Iterator<T> create_iterator();
+
+	public AbsTree<T> getRight() {
+		return right;
+	}
+
+	public void setRight(AbsTree<T> right) {
+		this.right = right;
+	}
+
+	private T value;
+	private AbsTree<T> left;
+	private AbsTree<T> right;
+
+	public AbsTree<T> getLeft() {
+		return left;
+	}
+
+	public void setLeft(AbsTree<T> left) {
+		this.left = left;
+	}
+
+	public T getValue() {
+		return value;
+	}
+
+	public void setValue(T value) {
+		this.value = value;
+	}
 }
